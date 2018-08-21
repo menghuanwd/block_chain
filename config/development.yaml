@@ -1,0 +1,5 @@
+pg_host: '47.96.127.162'
+pg_port: '5432'
+pg_database: 'block_development'
+pg_user: 'hugo'
+pg_password: 'Hugo1234'
