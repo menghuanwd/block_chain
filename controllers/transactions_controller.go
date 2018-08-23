@@ -5,8 +5,7 @@ import (
 	"block_chain/models"
 	"block_chain/services"
 	"block_chain/utils"
-	"fmt"
-	"github.com/davecgh/go-spew/spew"
+	// "github.com/davecgh/go-spew/spew"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"sync"
@@ -14,6 +13,7 @@ import (
 
 var mutex = &sync.Mutex{}
 
+// HandleGetBlockChain ...
 func HandleGetBlockChain(c *gin.Context) {
 	var blocks []models.Block
 
@@ -22,9 +22,10 @@ func HandleGetBlockChain(c *gin.Context) {
 	c.JSON(200, blocks)
 }
 
+// HandlePay ...
 func HandlePay(c *gin.Context) {
 	var payBody models.PayBody
-	fmt.Println(c.Request.Body)
+
 	if err := c.BindJSON(&payBody); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
@@ -32,7 +33,7 @@ func HandlePay(c *gin.Context) {
 		return
 	}
 
-	spew.Dump(payBody)
+	// spew.Dump(payBody)
 
 	fromAddress := utils.CalculateHash(payBody.FromUser)
 	toAddress := utils.CalculateHash(payBody.ToUser)

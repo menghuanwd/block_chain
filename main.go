@@ -61,7 +61,7 @@ func main() {
 }
 
 func createTables(db *gorm.DB) {
-	db.DropTableIfExists(&models.Transaction{}, &models.Block{})
+	// db.DropTableIfExists(&models.Transaction{}, &models.Block{})
 
 	if !db.HasTable(&models.Block{}) {
 		db.CreateTable(&models.Block{})

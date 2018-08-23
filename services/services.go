@@ -6,7 +6,7 @@ import (
 	"block_chain/models"
 	"block_chain/utils"
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
+	// "github.com/davecgh/go-spew/spew"
 	"math/rand"
 	"strconv"
 	"time"
@@ -76,6 +76,12 @@ func award() {
 // GenesisBlock ...
 func GenesisBlock() models.Block {
 	var block models.Block
+
+	db.GetDB().Debug().Where("index = 0").First(&block)
+
+	if block.Hash != "" {
+		return block
+	}
 
 	block.MerkleRoot = merkletree.CalculateMarkleRoot([]string{""})
 	block.Transactions = nil
@@ -153,16 +159,14 @@ func CreateTransaction(fromAddress, toAddress string, price float64) models.Tran
 
 	nonce := utils.Nonce(16)
 
-	fmt.Println(fromAddress, toAddress)
-
 	transaction.From = fromAddress
 	transaction.To = toAddress
 	transaction.GasPrice = strconv.FormatFloat(price, 'E', -1, 64)
 	transaction.Timestamp = time.Now().String()
 	transaction.Nonce = nonce
-	transaction.Hash = utils.CalculateHash(fromAddress + toAddress + nonce)
+	transaction.Hash = utils.CalculateHash(fromAddress + toAddress + nonce + transaction.Timestamp)
 
-	spew.Dump(transaction)
+	// spew.Dump(transaction)
 
 	transaction.Create()
 

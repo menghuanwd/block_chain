@@ -43,13 +43,13 @@ func CalculateMarkleRoot(hashes []string) string {
 
 	mr := t.MerkleRoot()
 
-	vc, err := t.VerifyContent(t.MerkleRoot(), list[0])
+	// vc, err := t.VerifyContent(t.MerkleRoot(), list[0])
 
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(vc)
-	}
+	// if err != nil {
+	// 	fmt.Println(err)
+	// } else {
+	// 	fmt.Println(vc)
+	// }
 
 	return string(hex.EncodeToString(mr))
 }

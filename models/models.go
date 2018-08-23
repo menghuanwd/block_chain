@@ -7,7 +7,7 @@ import (
 
 type Transaction struct {
 	Timestamp string `json:"timestamp"`
-	Hash      string `json:"hash"`
+	Hash      string `json:"hash" gorm:"type:varchar(100);unique_index"`
 	From      string `json:"from"`
 	To        string `json:"to"`
 	GasPrice  string `json:"gas_price"`
@@ -22,9 +22,9 @@ type PayBody struct {
 }
 
 type Block struct {
-	Index        uint           `json:"id"`
+	Index        uint           `json:"index"`
 	Timestamp    string         `json:"timestamp"`
-	Hash         string         `json:"hash"`
+	Hash         string         `json:"hash" gorm:"type:varchar(100);unique_index"`
 	MerkleRoot   string         `json:"merkle_root"`
 	Transactions pq.StringArray `json:"transactions" gorm:"type:varchar(100)[]"`
 	PreHash      string         `json:"pre_hash"`
